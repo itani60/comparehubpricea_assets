@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/x-icon" href="/assets/icons/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Coming Soon | CompareHubPrices</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #f5f6fa;
+      --ink: #0f172a;
+      --muted: #4b5563;
+      --line: #d7dde8;
+      --card: rgba(255, 255, 255, 0.82);
+      --accent: #dc2626;
+      --accent-2: #ef4444;
+      --accent-3: #2563eb;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Outfit", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(1100px 560px at -10% -5%, rgba(220, 38, 38, 0.22), transparent 62%),
+        radial-gradient(900px 520px at 110% 0%, rgba(37, 99, 235, 0.2), transparent 58%),
+        radial-gradient(900px 540px at 50% 120%, rgba(15, 23, 42, 0.12), transparent 60%),
+        var(--bg);
+      display: grid;
+      place-items: center;
+      padding: clamp(16px, 3vw, 32px);
+      overflow: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: radial-gradient(circle at center, black 35%, transparent 90%);
+      z-index: 0;
+    }
+
+    .scene {
+      width: min(980px, 100%);
+      position: relative;
+      z-index: 1;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: var(--card);
+      backdrop-filter: blur(10px);
+      box-shadow:
+        0 24px 70px rgba(15, 23, 42, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      min-height: 520px;
+    }
+
+    .left {
+      padding: clamp(22px, 3.6vw, 42px);
+      display: grid;
+      align-content: start;
+      gap: 18px;
+    }
+
+    .logo {
+      width: clamp(126px, 18vw, 180px);
+      height: auto;
+    }
+
+    .kicker {
+      width: fit-content;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #991b1b;
+      background: rgba(220, 38, 38, 0.12);
+      border: 1px solid rgba(220, 38, 38, 0.3);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(30px, 4.2vw, 52px);
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+      max-width: 13ch;
+    }
+
+    .subtitle {
+      margin: 0;
+      max-width: 42ch;
+      color: var(--muted);
+      font-size: clamp(15px, 1.7vw, 18px);
+      line-height: 1.52;
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      max-width: 440px;
+    }
+
+    .status-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.8);
+      display: grid;
+      gap: 6px;
+      justify-items: start;
+    }
+
+    .status-card i {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      font-size: 13px;
+    }
+
+    .status-card strong {
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #334155;
+    }
+
+    .progress-wrap {
+      width: min(420px, 100%);
+      margin-top: 2px;
+    }
+
+    .progress-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 12px;
+      color: #475569;
+      margin-bottom: 7px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .progress {
+      height: 9px;
+      border-radius: 999px;
+      background: #e5e7eb;
+      overflow: hidden;
+      border: 1px solid #d1d5db;
+    }
+
+    .progress > span {
+      display: block;
+      width: 72%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
+      background-size: 200% 100%;
+      animation: pulseBar 2.8s linear infinite;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .btn {
+      text-decoration: none;
+      border-radius: 12px;
+      padding: 11px 16px;
+      font-weight: 700;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.16s ease, box-shadow 0.22s ease, background 0.22s ease;
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff;
+      box-shadow: 0 12px 24px rgba(220, 38, 38, 0.28);
+    }
+
+    .btn.secondary {
+      color: #0f172a;
+      border: 1px solid #c9d6ea;
+      background: #fff;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn.secondary:hover {
+      background: #f8fafc;
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08);
+    }
+
+    .right {
+      position: relative;
+      border-left: 1px solid var(--line);
+      background:
+        linear-gradient(170deg, rgba(220, 38, 38, 0.08), rgba(37, 99, 235, 0.08));
+      overflow: hidden;
+      padding: 24px;
+      display: grid;
+      place-items: center;
+    }
+
+    .orb {
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: conic-gradient(from 25deg, #dc2626, #ef4444, #2563eb, #dc2626);
+      opacity: 0.22;
+      filter: blur(2px);
+      animation: spinOrb 16s linear infinite;
+    }
+
+    .halo {
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      border: 1px dashed rgba(30, 64, 175, 0.24);
+      animation: spinOrb 26s linear infinite reverse;
+    }
+
+    .stack {
+      position: relative;
+      width: min(320px, 100%);
+      display: grid;
+      gap: 12px;
+      z-index: 2;
+    }
+
+    .panel {
+      border-radius: 16px;
+      border: 1px solid #cfe0f5;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 14px 24px rgba(15, 23, 42, 0.1);
+      animation: floatPanel 3.5s ease-in-out infinite;
+    }
+
+    .panel:nth-child(2) {
+      margin-left: 20px;
+      animation-delay: 0.35s;
+    }
+
+    .panel:nth-child(3) {
+      margin-left: 8px;
+      animation-delay: 0.7s;
+    }
+
+    .panel i {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #dc2626, #ef4444);
+      color: #fff;
+      font-size: 13px;
+      flex: 0 0 auto;
+    }
+
+    .panel strong {
+      display: block;
+      color: #0f172a;
+      font-size: 14px;
+      line-height: 1.2;
+    }
+
+    .panel span {
+      display: block;
+      color: #64748b;
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    footer {
+      margin-top: 14px;
+      text-align: center;
+      color: #64748b;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    @keyframes spinOrb {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes floatPanel {
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-4px);
+      }
+    }
+
+    @keyframes pulseBar {
+      0% {
+        background-position: 0% 0%;
+      }
+
+      100% {
+        background-position: 200% 0%;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .card {
+        grid-template-columns: 1fr;
+      }
+
+      .right {
+        min-height: 270px;
+        border-left: 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .status-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .left {
+        padding: 20px;
+      }
+
+      .status-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        width: 100%;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .right {
+        padding: 16px;
+      }
+
+      .orb {
+        width: 260px;
+        height: 260px;
+      }
+
+      .halo {
+        width: 290px;
+        height: 290px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="scene" role="main">
+    <section class="card" aria-labelledby="heading">
+      <div class="left">
+        <img src="assets/logo/logo2.png" alt="CompareHubPrices" class="logo">
+        <span class="kicker">Platform Upgrade In Progress</span>
+        <h1 id="heading">A bolder CompareHubPrices is loading.</h1>
+        <p class="subtitle">We are refining the shopping experience with faster performance, cleaner visuals, and better discovery tools.</p>
+
+        <div class="status-grid" aria-hidden="true">
+          <div class="status-card">
+            <i class="fa-solid fa-gauge-high"></i>
+            <strong>Performance</strong>
+          </div>
+          <div class="status-card">
+            <i class="fa-solid fa-palette"></i>
+            <strong>Visuals</strong>
+          </div>
+          <div class="status-card">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <strong>UX Polish</strong>
+          </div>
+        </div>
+
+        <div class="progress-wrap" aria-hidden="true">
+          <div class="progress-label">
+            <span>Build Progress</span>
+            <span>72%</span>
+          </div>
+          <div class="progress"><span></span></div>
+        </div>
+
+        <div class="actions">
+          <a class="btn primary" href="smartphones.html"><i class="fa-solid fa-house"></i> Back To Store</a>
+          <a class="btn secondary" href="contact-us.html"><i class="fa-solid fa-envelope"></i> Contact Support</a>
+        </div>
+      </div>
+
+      <div class="right" aria-hidden="true">
+        <div class="orb"></div>
+        <div class="halo"></div>
+        <div class="stack">
+          <div class="panel">
+            <i class="fa-solid fa-mobile-screen-button"></i>
+            <div>
+              <strong>Sharper Product Views</strong>
+              <span>Cleaner cards and better quick actions</span>
+            </div>
+          </div>
+          <div class="panel">
+            <i class="fa-solid fa-bolt"></i>
+            <div>
+              <strong>Faster Loading</strong>
+              <span>Optimized rendering for every screen</span>
+            </div>
+          </div>
+          <div class="panel">
+            <i class="fa-solid fa-compass-drafting"></i>
+            <div>
+              <strong>Refined Discovery</strong>
+              <span>Smoother search, filters, and navigation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer>&copy; <span id="year"></span> CompareHubPrices. All rights reserved.</footer>
+  </main>
+
+  <script>
+    (function () {
+      var el = document.getElementById("year");
+      if (el) el.textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+
+</html>
